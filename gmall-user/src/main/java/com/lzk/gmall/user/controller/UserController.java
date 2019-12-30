@@ -1,6 +1,8 @@
 package com.lzk.gmall.user.controller;
 
 import com.lzk.gmall.user.bean.UmsMember;
+import com.lzk.gmall.user.bean.UmsMemberReceiveAddress;
+import com.lzk.gmall.user.service.UmsMemberReceiveAddressService;
 import com.lzk.gmall.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UmsMemberReceiveAddressService umsMemberReceiveAddressService;
+
     @RequestMapping("/getAllUser")
     public List<UmsMember> getAllUser(){
         List<UmsMember> umsMember =  userService.getAllUser();
@@ -22,6 +27,11 @@ public class UserController {
 
     @RequestMapping("/index")
     public String index(){
-        return "index";
+        return "index5";
+    }
+
+    @RequestMapping("/selectByMemberId")
+    public List<UmsMemberReceiveAddress> selectByMemberId(Long memberId){
+        return umsMemberReceiveAddressService.selectByMemberId(memberId);
     }
 }
