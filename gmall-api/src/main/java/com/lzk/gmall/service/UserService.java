@@ -1,6 +1,6 @@
-package com.lzk.gmall.user.service;
+package com.lzk.gmall.service;
 
-import com.lzk.gmall.user.bean.UmsMember;
+import com.lzk.gmall.bean.UmsMember;
 
 import java.util.List;
 

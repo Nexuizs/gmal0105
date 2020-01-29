@@ -3,9 +3,11 @@ package com.lzk.gmall.user;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.lzk.gmall.user.mapper")
+@ComponentScan(basePackages = {"com.lzk.gmall"})
+@MapperScan(basePackages = "com.lzk.gmall.mapper")
 public class GmallUserApplication {
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.lzk.gmall.user.bean;
+package com.lzk.gmall.bean;
 
 import java.io.Serializable;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.lzk.gmall.user.service;
+package com.lzk.gmall.service;
 
-import com.lzk.gmall.user.bean.UmsMemberReceiveAddress;
+import com.lzk.gmall.bean.UmsMemberReceiveAddress;
 
 import java.util.List;
 

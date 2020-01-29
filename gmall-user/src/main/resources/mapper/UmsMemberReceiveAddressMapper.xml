@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lzk.gmall.user.mapper.UmsMemberReceiveAddressMapper">
-  <resultMap id="BaseResultMap" type="com.lzk.gmall.user.bean.UmsMemberReceiveAddress">
+<mapper namespace="com.lzk.gmall.mapper.UmsMemberReceiveAddressMapper">
+  <resultMap id="BaseResultMap" type="com.lzk.gmall.bean.UmsMemberReceiveAddress">
     <!--@mbg.generated-->
     <!--@Table ums_member_receive_address-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -32,7 +32,7 @@
     delete from ums_member_receive_address
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.user.bean.UmsMemberReceiveAddress" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.UmsMemberReceiveAddress" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member_receive_address (member_id, `name`, phone_number, 
       default_status, post_code, province, 
@@ -43,7 +43,7 @@
       #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{detailAddress,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.user.bean.UmsMemberReceiveAddress" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.UmsMemberReceiveAddress" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member_receive_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -105,7 +105,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lzk.gmall.user.bean.UmsMemberReceiveAddress">
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzk.gmall.bean.UmsMemberReceiveAddress">
     <!--@mbg.generated-->
     update ums_member_receive_address
     <set>
@@ -139,7 +139,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lzk.gmall.user.bean.UmsMemberReceiveAddress">
+  <update id="updateByPrimaryKey" parameterType="com.lzk.gmall.bean.UmsMemberReceiveAddress">
     <!--@mbg.generated-->
     update ums_member_receive_address
     set member_id = #{memberId,jdbcType=BIGINT},
