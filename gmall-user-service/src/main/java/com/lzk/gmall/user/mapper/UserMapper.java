@@ -1,4 +1,4 @@
-package com.lzk.gmall.mapper;
+package com.lzk.gmall.user.mapper;
 
 import com.lzk.gmall.bean.UmsMember;
 

@@ -1,16 +1,15 @@
-package com.lzk.gmall.service.impl;
+package com.lzk.gmall.user.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.lzk.gmall.bean.UmsMemberReceiveAddress;
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.lzk.gmall.mapper.UmsMemberReceiveAddressMapper;
-import com.lzk.gmall.bean.UmsMemberReceiveAddress;
+import com.lzk.gmall.user.mapper.UmsMemberReceiveAddressMapper;
 import com.lzk.gmall.service.UmsMemberReceiveAddressService;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class  UmsMemberReceiveAddressServiceImpl implements UmsMemberReceiveAddressService{
+public class  UmsMemberReceiveAddressServiceImpl implements UmsMemberReceiveAddressService {
 
     @Resource
     private UmsMemberReceiveAddressMapper umsMemberReceiveAddressMapper;

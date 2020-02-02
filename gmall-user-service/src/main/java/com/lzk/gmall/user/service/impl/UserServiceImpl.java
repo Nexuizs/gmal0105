@@ -1,10 +1,10 @@
-package com.lzk.gmall.service.impl;
+package com.lzk.gmall.user.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.lzk.gmall.bean.UmsMember;
-import com.lzk.gmall.mapper.UserMapper;
+import com.lzk.gmall.user.mapper.UserMapper;
 import com.lzk.gmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
