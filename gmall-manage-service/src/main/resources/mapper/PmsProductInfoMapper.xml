@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzk.gmall.manage.mapper.PmsProductInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lzk.gmall.bean.PmsProductInfo">
+    <!--@mbg.generated-->
+    <!--@Table pms_product_info-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="catalog3_id" jdbcType="BIGINT" property="catalog3Id" />
+    <result column="tm_id" jdbcType="BIGINT" property="tmId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, product_name, description, catalog3_id, tm_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pms_product_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from pms_product_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.PmsProductInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pms_product_info (product_name, description, catalog3_id, 
+      tm_id)
+    values (#{productName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{catalog3Id,jdbcType=BIGINT}, 
+      #{tmId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.PmsProductInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pms_product_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="catalog3Id != null">
+        catalog3_id,
+      </if>
+      <if test="tmId != null">
+        tm_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="catalog3Id != null">
+        #{catalog3Id,jdbcType=BIGINT},
+      </if>
+      <if test="tmId != null">
+        #{tmId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzk.gmall.bean.PmsProductInfo">
+    <!--@mbg.generated-->
+    update pms_product_info
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="catalog3Id != null">
+        catalog3_id = #{catalog3Id,jdbcType=BIGINT},
+      </if>
+      <if test="tmId != null">
+        tm_id = #{tmId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzk.gmall.bean.PmsProductInfo">
+    <!--@mbg.generated-->
+    update pms_product_info
+    set product_name = #{productName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      catalog3_id = #{catalog3Id,jdbcType=BIGINT},
+      tm_id = #{tmId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByCatalog3Id" resultMap="BaseResultMap" parameterType="long">
+    select
+    <include refid="Base_Column_List" />
+    from pms_product_info
+    where catalog3_id = #{catalog3Id}
+  </select>
+</mapper>

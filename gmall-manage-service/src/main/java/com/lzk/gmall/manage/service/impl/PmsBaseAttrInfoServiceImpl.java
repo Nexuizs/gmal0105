@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.lzk.gmall.bean.PmsBaseAttrInfo;
+import com.lzk.gmall.bean.PmsBaseAttrValue;
 import com.lzk.gmall.bean.dto.AttrInfoAndValue;
 import com.lzk.gmall.manage.mapper.PmsBaseAttrInfoMapper;
+import com.lzk.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.lzk.gmall.service.PmsBaseAttrInfoService;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService{
 
     @Resource
     private PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
+
+    @Resource
+    private PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
 
     @Override
     public int deleteByPrimaryKey(Long id) {
@@ -48,7 +53,12 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService{
 
     @Override
     public List<PmsBaseAttrInfo> selectByCatalog3Id(Integer catalog3Id) {
-        return pmsBaseAttrInfoMapper.selectByCatalog3Id(catalog3Id);
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectByCatalog3Id(catalog3Id);
+        for (PmsBaseAttrInfo pmsBaseAttrInfo : pmsBaseAttrInfos) {
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.selectByAttrId(pmsBaseAttrInfo.getId());
+            pmsBaseAttrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
+        return pmsBaseAttrInfos;
     }
 
     @Override
