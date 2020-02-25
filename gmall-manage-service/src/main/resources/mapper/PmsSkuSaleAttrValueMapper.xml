@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzk.gmall.manage.mapper.PmsSkuSaleAttrValueMapper">
+  <resultMap id="BaseResultMap" type="com.lzk.gmall.bean.PmsSkuSaleAttrValue">
+    <!--@mbg.generated-->
+    <!--@Table pms_sku_sale_attr_value-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="sale_attr_id" jdbcType="INTEGER" property="saleAttrId" />
+    <result column="sale_attr_value_id" jdbcType="BIGINT" property="saleAttrValueId" />
+    <result column="sale_attr_name" jdbcType="VARCHAR" property="saleAttrName" />
+    <result column="sale_attr_value_name" jdbcType="VARCHAR" property="saleAttrValueName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, sku_id, sale_attr_id, sale_attr_value_id, sale_attr_name, sale_attr_value_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pms_sku_sale_attr_value
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from pms_sku_sale_attr_value
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.PmsSkuSaleAttrValue" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pms_sku_sale_attr_value (sku_id, sale_attr_id, sale_attr_value_id, 
+      sale_attr_name, sale_attr_value_name)
+    values (#{skuId,jdbcType=BIGINT}, #{saleAttrId,jdbcType=INTEGER}, #{saleAttrValueId,jdbcType=BIGINT}, 
+      #{saleAttrName,jdbcType=VARCHAR}, #{saleAttrValueName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lzk.gmall.bean.PmsSkuSaleAttrValue" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pms_sku_sale_attr_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="saleAttrId != null">
+        sale_attr_id,
+      </if>
+      <if test="saleAttrValueId != null">
+        sale_attr_value_id,
+      </if>
+      <if test="saleAttrName != null">
+        sale_attr_name,
+      </if>
+      <if test="saleAttrValueName != null">
+        sale_attr_value_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="saleAttrId != null">
+        #{saleAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="saleAttrValueId != null">
+        #{saleAttrValueId,jdbcType=BIGINT},
+      </if>
+      <if test="saleAttrName != null">
+        #{saleAttrName,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAttrValueName != null">
+        #{saleAttrValueName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzk.gmall.bean.PmsSkuSaleAttrValue">
+    <!--@mbg.generated-->
+    update pms_sku_sale_attr_value
+    <set>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="saleAttrId != null">
+        sale_attr_id = #{saleAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="saleAttrValueId != null">
+        sale_attr_value_id = #{saleAttrValueId,jdbcType=BIGINT},
+      </if>
+      <if test="saleAttrName != null">
+        sale_attr_name = #{saleAttrName,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAttrValueName != null">
+        sale_attr_value_name = #{saleAttrValueName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzk.gmall.bean.PmsSkuSaleAttrValue">
+    <!--@mbg.generated-->
+    update pms_sku_sale_attr_value
+    set sku_id = #{skuId,jdbcType=BIGINT},
+      sale_attr_id = #{saleAttrId,jdbcType=INTEGER},
+      sale_attr_value_id = #{saleAttrValueId,jdbcType=BIGINT},
+      sale_attr_name = #{saleAttrName,jdbcType=VARCHAR},
+      sale_attr_value_name = #{saleAttrValueName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
