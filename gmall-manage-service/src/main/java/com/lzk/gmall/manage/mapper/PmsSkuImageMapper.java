@@ -2,6 +2,8 @@ package com.lzk.gmall.manage.mapper;
 
 import com.lzk.gmall.bean.PmsSkuImage;
 
+import java.util.List;
+
 public interface PmsSkuImageMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface PmsSkuImageMapper {
     int updateByPrimaryKeySelective(PmsSkuImage record);
 
     int updateByPrimaryKey(PmsSkuImage record);
+
+    List<PmsSkuImage> selectBySkuId(Long skuId);
 }

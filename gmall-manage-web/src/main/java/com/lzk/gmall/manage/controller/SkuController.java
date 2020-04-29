@@ -17,8 +17,10 @@ public class SkuController {
 
     @RequestMapping("saveSkuInfo")
     public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
-        if(pmsSkuInfo.getSkuDefaultImg() == null){
-            pmsSkuInfo.setSkuDefaultImg(pmsSkuInfo.getSkuImageList().get(0).getImgUrl());
+        if(pmsSkuInfo.getSkuImageList().size() > 0){
+            if(pmsSkuInfo.getSkuDefaultImg() == null){
+                pmsSkuInfo.setSkuDefaultImg(pmsSkuInfo.getSkuImageList().get(0).getImgUrl());
+            }
         }
         int i = pmsSkuInfoService.insert(pmsSkuInfo);
         if(i > 0){

@@ -104,4 +104,10 @@
       is_default = #{isDefault,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectBySkuId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pms_sku_image
+    where sku_id = #{skuId}
+  </select>
 </mapper>

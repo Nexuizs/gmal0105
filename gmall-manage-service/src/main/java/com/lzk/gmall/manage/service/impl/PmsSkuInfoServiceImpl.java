@@ -93,4 +93,13 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
         return pmsSkuInfoMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public PmsSkuInfo getSkuById(Long skuId) {
+        PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(skuId);
+        //sku图片集合
+        List<PmsSkuImage> pmsSkuImageList =  pmsSkuImageMapper.selectBySkuId(skuId);
+        pmsSkuInfo.setSkuImageList(pmsSkuImageList);
+        return pmsSkuInfo;
+    }
+
 }

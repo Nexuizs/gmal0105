@@ -16,4 +16,5 @@ public interface PmsSkuInfoService{
 
     int updateByPrimaryKey(PmsSkuInfo record);
 
+    PmsSkuInfo getSkuById(Long skuId);
 }
