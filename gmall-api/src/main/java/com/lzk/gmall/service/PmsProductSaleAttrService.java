@@ -21,4 +21,6 @@ public interface PmsProductSaleAttrService{
     int updateByPrimaryKey(PmsProductSaleAttr record);
 
     List<PmsProductSaleAttr> selectBySpuId(Long spuId);
+
+    List<PmsProductSaleAttr> selectSpuSaleAttrListCheckBySku(Long productId, Long skuId);
 }

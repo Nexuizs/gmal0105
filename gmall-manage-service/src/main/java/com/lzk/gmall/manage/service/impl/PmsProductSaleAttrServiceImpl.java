@@ -3,7 +3,6 @@ package com.lzk.gmall.manage.service.impl;
 import javax.annotation.Resource;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.lzk.gmall.bean.PmsBaseSaleAttr;
 import com.lzk.gmall.bean.PmsProductSaleAttrValue;
 import com.lzk.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.lzk.gmall.bean.PmsProductSaleAttr;
@@ -59,5 +58,10 @@ public class PmsProductSaleAttrServiceImpl implements PmsProductSaleAttrService{
             pmsProductSaleAttr.setSpuSaleAttrValueList(pmsProductSaleAttrValues);
         }
         return pmsProductSaleAttrs;
+    }
+
+    @Override
+    public List<PmsProductSaleAttr> selectSpuSaleAttrListCheckBySku(Long productId, Long skuId) {
+        return pmsProductSaleAttrMapper.selectSpuSaleAttrListCheckBySku(productId, skuId);
     }
 }
