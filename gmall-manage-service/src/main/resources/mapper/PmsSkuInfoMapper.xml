@@ -139,4 +139,20 @@
       sku_default_img = #{skuDefaultImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="getSkuSaleAttrValueListBySpu" resultMap="skuSaleAttrValueListBySpu">
+    select
+    si.*, ssav.*, si.id as si_id, ssav.id as ssav_id
+    from
+    pms_sku_info si,
+    pms_sku_sale_attr_value ssav
+    where
+    si.product_id = #{productId} and si.id = ssav.sku_id
+  </select>
+
+  <resultMap id="skuSaleAttrValueListBySpu" type="com.lzk.gmall.bean.PmsSkuInfo" autoMapping="true">
+    <id column="si_id" jdbcType="BIGINT" property="id" />
+    <collection ofType="com.lzk.gmall.bean.PmsSkuSaleAttrValue" property="skuSaleAttrValueList" autoMapping="true">
+      <id column="ssav_id" jdbcType="BIGINT" property="id" />
+    </collection>
+  </resultMap>
 </mapper>

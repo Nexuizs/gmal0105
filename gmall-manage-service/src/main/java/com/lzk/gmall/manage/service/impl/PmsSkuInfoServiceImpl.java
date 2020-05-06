@@ -102,4 +102,9 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
         return pmsSkuInfo;
     }
 
+    @Override
+    public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(Long productId) {
+        return pmsSkuInfoMapper.getSkuSaleAttrValueListBySpu(productId);
+    }
+
 }
