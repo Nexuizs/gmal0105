@@ -3,6 +3,7 @@ package com.lzk.gmall.manage.service.impl;
 import javax.annotation.Resource;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.lzk.gmall.bean.PmsSkuAttrValue;
 import com.lzk.gmall.bean.PmsSkuImage;
 import com.lzk.gmall.bean.PmsSkuInfo;
@@ -12,7 +13,11 @@ import com.lzk.gmall.manage.mapper.PmsSkuImageMapper;
 import com.lzk.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.lzk.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
 import com.lzk.gmall.service.PmsSkuInfoService;
+import com.lzk.gmall.util.RedisUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,9 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
     public int deleteByPrimaryKey(Long id) {
         return pmsSkuInfoMapper.deleteByPrimaryKey(id);
     }
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -95,7 +103,38 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
 
     @Override
     public PmsSkuInfo getSkuById(Long skuId) {
-        PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(skuId);
+        PmsSkuInfo pmsSkuInfo = null;
+        Jedis jedis = redisUtil.getJedis();
+        String skuKey = "sku:" + skuId + ":info";
+        String skuJson = jedis.get(skuKey);
+        if(StringUtils.isNoneBlank(skuJson)){
+            pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
+        }else{
+            //nx redis自带分布式锁，只有为空时才可以set成功
+            String OK = jedis.set("sku:" + skuId + ":lock", "1", "nx", "px", 10000);
+            if(StringUtils.isNotBlank(OK) && OK.equals("OK")){
+                pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(skuId);
+                //mysql查询结果存入redis
+                if(null != pmsSkuInfo){
+                    jedis.set(skuKey, JSON.toJSONString(pmsSkuInfo));
+                }else{
+                    //数据库中不存在sku
+                    //为了防止缓存穿透，将null值或者空字符串值设置给redis
+                    jedis.setex(skuKey, 60*3, JSON.toJSONString(""));
+                }
+                //在访问mysql后，将mysql的分布式锁释放
+                jedis.del("sku:" + skuId + ":lock");
+            }else{
+                //设置失败，自旋(该线程在睡眠几秒后，重新访问)
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return getSkuById(skuId);
+            }
+        }
+        jedis.close();
         //sku图片集合
         List<PmsSkuImage> pmsSkuImageList =  pmsSkuImageMapper.selectBySkuId(skuId);
         pmsSkuInfo.setSkuImageList(pmsSkuImageList);
