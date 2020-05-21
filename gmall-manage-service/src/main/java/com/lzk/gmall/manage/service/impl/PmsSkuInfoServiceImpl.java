@@ -21,6 +21,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
@@ -111,7 +112,8 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
             pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
         }else{
             //nx redis自带分布式锁，只有为空时才可以set成功
-            String OK = jedis.set("sku:" + skuId + ":lock", "1", "nx", "px", 10000);
+            String token = UUID.randomUUID().toString();
+            String OK = jedis.set("sku:" + skuId + ":lock", token, "nx", "px", 10000);
             if(StringUtils.isNotBlank(OK) && OK.equals("OK")){
                 pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(skuId);
                 //mysql查询结果存入redis
@@ -123,7 +125,13 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService{
                     jedis.setex(skuKey, 60*3, JSON.toJSONString(""));
                 }
                 //在访问mysql后，将mysql的分布式锁释放
-                jedis.del("sku:" + skuId + ":lock");
+                String lockToken = jedis.get("sku:" + skuId + ":lock");
+                //说明：当刚好锁过期，其他线程获取到锁，本线程删除锁时，删除了其他线程获取的锁，所以需要判断删除的锁是不是自己的锁
+                if(StringUtils.isNotBlank(lockToken) && lockToken.equals(token)){
+                    //说明：在判断locktoken时刚好锁过期了，其他线程获取到锁，然后本线程把其他线程的锁删除了，所以使用lua脚本，缩短时间
+                    //jedis.eval("lua") 可以用lua脚本，在查询到key时同时删除该key，防止高并发下发生特殊情况
+                    jedis.del("sku:" + skuId + ":lock");//用token确认锁是自己的
+                }
             }else{
                 //设置失败，自旋(该线程在睡眠几秒后，重新访问)
                 try {
