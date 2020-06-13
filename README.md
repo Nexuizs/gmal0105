@@ -21,5 +21,5 @@ nginx启动：进入nginx的sbin目录，./nginx
 后台管理页面启动（前后端分离）：进入 F:\谷粒商城\gmall-admin\gmall-admin cmd 打开输入 npm run dev 
 启动前端服务 地址：http://127.0.0.1:8888/#/login?redirect=%2Fdashboard
 
-redis启动：进入redis安装目录/usr/local/redis 输入./bin/redis-server ./redis.confll
+redis启动：进入redis安装目录/usr/local/redis 输入./bin/redis-server ./redis.conf
 Linux 打开redis客户端 ./bin/redis-cli -h 192.168.136.131 -p 6379 -a root
