@@ -1,4 +1,4 @@
-package com.lzk.gmall.manage.redisonTest;
+package com.lzk.gmall.redissontest.redisonTest;
 
 import com.lzk.gmall.util.RedisUtil;
 import org.redisson.api.RLock;
